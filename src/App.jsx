@@ -1,14 +1,17 @@
-import React from 'react'
-import DayItinerary from './components/DayItinerary'
-import ItineraryBanner from './components/ItineraryBanner'
+import React from 'react';
+import TripPlanner from './components/TripPlanner';
+import ItineraryBanner from './components/ItineraryBanner';
+// You can also import your other components here
+// import ItineraryBanner from './components/ItineraryBanner';
+// import DayItinerary from './components/DayItinerary';
 
-const App = () => {
+
+function App() {
   return (
     <>
-      <ItineraryBanner />
-      <DayItinerary />
+      <TripPlanner />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

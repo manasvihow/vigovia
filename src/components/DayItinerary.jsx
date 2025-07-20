@@ -1,70 +1,74 @@
 import React from 'react';
+import { FaCar, FaPlaneDeparture, FaPlaneArrival, FaBed } from 'react-icons/fa';
 
-// You can create a simple Icon component for the bullet points if you want to customize them
-const BulletIcon = () => (
-  <svg height="24" width="24" className="inline-block -ml-1 mr-2 h-5 w-5 fill-current text-gray-700" viewBox="0 0 24 24">
-    <circle cx="12" cy="12" r="5" />
-  </svg>
-);
+const DayItinerary = ({ data }) => {
+  const { day, destinationName } = data;
 
+  const getIcon = (type) => {
+    switch (type) {
+        case 'flight-departure': return <FaPlaneDeparture className="text-white h-3 w-3"/>;
+        case 'flight-arrival': return <FaPlaneArrival className="text-white h-3 w-3"/>;
+        case 'hotel-checkin': return <FaBed className="text-white h-3 w-3"/>;
+        case 'hotel-checkout': return <FaBed className="text-white h-3 w-3"/>;
+        case 'transfer': return <FaCar className="text-gray-600 h-3 w-3"/>;
+        default: return <span className="text-blue-600 font-bold">•</span>;
+    }
+  };
+  
+  const getIconBg = (type) => {
+    switch (type) {
+        case 'flight-departure': return 'bg-red-500';
+        case 'flight-arrival': return 'bg-green-500';
+        case 'hotel-checkin': return 'bg-blue-500';
+        case 'hotel-checkout': return 'bg-orange-500';
+        default: return 'bg-transparent';
+    }
+  };
 
-const DayItinerary = () => {
+  const groupedEvents = {
+    Morning: day.activities.filter(a => a.timeOfDay === 'Morning'),
+    Afternoon: day.activities.filter(a => a.timeOfDay === 'Afternoon'),
+    Evening: day.activities.filter(a => a.timeOfDay === 'Evening'),
+  };
+
   return (
-    <div className="flex items-center justify-center bg-gray-50 p-8 font-sans">
-      <div className="flex w-full max-w-5xl items-stretch gap-8">
+    <div className="flex w-full items-start gap-8 font-sans break-inside-avoid py-6">
+      <div className="flex flex-shrink-0 items-center justify-center rounded-full bg-[#321E5D] py-28 px-4">
+        <p className="text-lg font-bold text-white [writing-mode:sideways-lr] tracking-wider">Day {day.dayNumber}</p>
+      </div>
 
-        {/* Column 1: Day Bar */}
-        <div className="flex items-center justify-center rounded-full bg-[#4a235a] px-4 py-16">
-          <p className="text-lg font-bold text-white [writing-mode:sideways-lr]">Day 1</p>
-        </div>
+      <div className="flex flex-shrink-0 flex-col items-center justify-center text-center">
+        <img src={`https://picsum.photos/seed/${day.date}/200/300`} alt={destinationName} className="h-40 w-40 rounded-full object-cover shadow-md"/>
+        <p className="mt-4 text-2xl font-bold text-gray-800">{new Date(day.date).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
+        <p className="text-xl text-gray-600">{destinationName}</p>
+      </div>
 
-        {/* Column 2: Image and Date */}
-        <div className="flex flex-shrink-0 flex-col items-center justify-center text-center">
-          <img
-            src="https://images.unsplash.com/photo-1507525428034-b723a9ce6890?q=80&w=2070&auto=format&fit=crop"
-            alt="Beach scenery in Singapore"
-            className="h-40 w-40 rounded-full object-cover shadow-md"
-          />
-          <p className="mt-4 text-xl font-bold text-gray-800">27th November</p>
-          <p className="text-md text-gray-600">Arrival In Singapore & City Exploration</p>
-        </div>
-
-        {/* Column 3: Timeline and Activities */}
-        <div className="relative flex-grow pl-10">
-          {/* Vertical Timeline Bar */}
-          <div className="absolute left-4 top-2 h-[95%] w-0.5 bg-blue-400"></div>
-
-          <div className="space-y-8">
-            {/* Morning Section */}
-            <div className="relative">
-              <div className="absolute -left-2.5 top-1 h-3 w-3 rounded-full border-2 border-blue-400 bg-white"></div>
-              <div className="pl-6">
-                <p className="font-bold text-gray-800">Morning</p>
-                <p className="mt-1 text-gray-600">• Arrive In Singapore. Transfer From Airport To Hotel.</p>
-              </div>
-            </div>
-
-            {/* Afternoon Section */}
-            <div className="relative">
-              <div className="absolute -left-2.5 top-1 h-3 w-3 rounded-full border-2 border-blue-400 bg-white"></div>
-              <div className="pl-6">
-                <p className="font-bold text-gray-800">Afternoon</p>
-                <ul className="mt-1 list-inside space-y-1 text-gray-600">
-                  <li>• Check Into Your Hotel.</li>
-                  <li>• Visit Marina Bay Sands Sky Park (2-3 Hours).</li>
-                  <li>• Optional: Stroll Along Marina Bay Waterfront Promenade Or Helix Bridge.</li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Evening Section */}
-            <div className="relative">
-              <div className="absolute -left-2.5 top-1 h-3 w-3 rounded-full border-2 border-blue-400 bg-white"></div>
-              <div className="pl-6">
-                <p className="font-bold text-gray-800">Evening</p>
-                <p className="mt-1 text-gray-600">• Explore Gardens By The Bay, Including Super Tree Grove (3-4 Hours)</p>
-              </div>
-            </div>
+      <div className="w-full pt-2">
+        <div className="relative">
+          <div className="absolute left-4 top-2 h-full w-0.5 bg-[#2F80ED]"></div>
+          <div className="space-y-6">
+            {Object.entries(groupedEvents).map(([time, events]) => (
+              events.length > 0 && (
+                <div key={time} className="relative flex items-start">
+                  <div className="absolute left-4 top-2.5 -ml-[5px] h-3 w-3 rounded-full border-2 border-[#680099] bg-white"></div>
+                  <p className="w-32 flex-shrink-0 pl-10 font-bold text-gray-800">{time}</p>
+                  <ul className="flex-grow space-y-2 text-gray-700">
+                    {events.map(event => (
+                      <li key={event.id} className="flex items-start gap-3">
+                        <div className={`mt-1 h-4 w-4 rounded-full ${getIconBg(event.type)} flex-shrink-0 flex items-centerjustify-center`}>
+                            {getIcon(event.type)}
+                        </div>
+                        <span>
+                          <span className="font-bold">{event.name}</span>
+                          
+                          {event.description ? `: ${event.description}` : ''}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )
+            ))}
           </div>
         </div>
       </div>
