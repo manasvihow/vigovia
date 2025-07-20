@@ -36,7 +36,7 @@ const Itinerary = forwardRef(({ itinerary, handleExportPdf, getDestinationName, 
         <ItineraryBanner
           name={itinerary.userName}
           title={`${getDestinationName(itinerary.destination)} Itinerary`}
-          duration={`${itinerary.numberOfDays} Days ${itinerary.numberOfDays > 1 ? itinerary.numberOfDays - 1 : 0} Nights`}
+          duration={`${itinerary.numberOfDays || 5} Days ${itinerary.numberOfDays > 1 ? itinerary.numberOfDays - 1 : 0} Nights`}
         />
         <TripDetailsBanner details={displayDetails} />
 

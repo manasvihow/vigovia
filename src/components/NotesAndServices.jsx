@@ -1,20 +1,5 @@
 import React from 'react';
-
-const Column = ({ title, data, width }) => (
-  <div className={width}>
-    <div className="bg-[#4a235a] text-white text-center font-bold p-3 rounded-t-full shadow-md">
-      {title}
-    </div>
-    <div className="bg-purple-50 p-3 space-y-2 shadow-md rounded-b-4xl">
-      {data.map((item, index) => (
-        <div key={index} className="text-center text-sm text-gray-800 flex items-center justify-center min-h-[40px]">
-          {item}
-        </div>
-      ))}
-      {data.length === 0 && <div className="min-h-[40px]"></div>}
-    </div>
-  </div>
-);
+import { Column } from './PaymentPlan';
 
 const NotesAndServices = ({ itinerary }) => {
   const { importantNotes, scopeOfService, flights, hotels } = itinerary;

@@ -1,6 +1,22 @@
 import React from 'react';
 import SummaryRow from './SummaryRow';
 
+export const Column = ({ title, data }) => (
+  <div className="flex-1">
+    <div className="bg-[#4a235a] text-white text-center font-bold p-3 rounded-t-full shadow-md">
+      {title}
+    </div>
+    <div className="bg-[#faf5ff] rounded-b-4xl p-3 mt-2 space-y-4 shadow-md">
+      {data.map((item, index) => (
+        <div key={index} className="text-center text-sm text-[#1e2939] h-8 flex items-center justify-center">
+          {item}
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+
 const PaymentPlan = ({ details }) => {
 
   const calculateTotal = () => {
@@ -28,30 +44,14 @@ const PaymentPlan = ({ details }) => {
   };
   // This function now calculates the total from all itinerary items
 
-  const Column = ({ title, data }) => (
-    <div className="flex-1">
-      <div className="bg-[#4a235a] text-white text-center font-bold p-3 rounded-t-full shadow-md">
-        {title}
-      </div>
-      <div className="bg-purple-50 rounded-b-4xl p-3 mt-2 space-y-4 shadow-md">
-        {data.map((item, index) => (
-          <div key={index} className="text-center text-sm text-gray-800 h-8 flex items-center justify-center">
-            {item}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-
-
   return (
     <div className="space-y-4 font-sans break-inside-avoid">
-      <h2 className="text-2xl font-bold text-gray-900">Payment <span className="text-purple-600">Plan</span></h2>
+      <h2 className="text-2xl font-bold text-[#101828]">Payment <span className="text-[#9810fa]">Plan</span></h2>
       <div className="space-y-3">
         <SummaryRow label="Total Amount">
-          <p className="font-bold text-gray-900">
+          <p className="font-bold text-[#101828]">
             {formatCurrency(totalAmount)}
-            <span className="ml-4 font-normal text-gray-600">For {details.travellers} Pax (Inclusive Of GST)</span>
+            <span className="ml-4 font-normal text-[#4a5565]">For {details.travellers} Pax (Inclusive Of GST)</span>
           </p>
         </SummaryRow>
         <SummaryRow label="TCS"><p>Not Collected</p></SummaryRow>

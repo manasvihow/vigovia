@@ -1,4 +1,5 @@
 import React from 'react';
+import { Column } from './PaymentPlan';
 
 const HotelBookings = ({ hotels, destination }) => {
   const calculateNights = (checkIn, checkOut) => {
@@ -7,24 +8,6 @@ const HotelBookings = ({ hotels, destination }) => {
     const nightCount = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return nightCount > 0 ? nightCount : 1;
   };
-
-  const Column = ({ title, data, width }) => (
-    <div className={width}>
-      <div className="bg-[#4a235a] text-white text-center font-bold p-3 rounded-t-full shadow-md">
-        {title}
-      </div>
-      {/* CORRECTED: Removed the 'h-full' class from this div */}
-      <div className="bg-purple-50 p-3 space-y-2 shadow-md rounded-b-4xl">
-        {data.map((item, index) => (
-          <div key={index} className="text-center text-sm text-gray-800 h-10 flex items-center justify-center">
-            {item}
-          </div>
-        ))}
-        {/* Add empty rows if there's no data to maintain a minimum height */}
-        {data.length === 0 && <div className="h-10"></div>}
-      </div>
-    </div>
-  );
 
   return (
     <div className="font-sans break-after-page">

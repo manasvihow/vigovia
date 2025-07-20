@@ -4,7 +4,7 @@ import { FaPlane, FaHotel, FaCity, FaCarSide, FaSuitcaseRolling } from 'react-ic
 
 const ItineraryBanner = ({ name, title, duration }) => {
   return (
-    <div className="w-full rounded-3xl bg-gradient-to-r from-blue-500 to-purple-600 p-8 text-center text-white shadow-lg break-inside-avoid">
+    <div className="w-full rounded-3xl bg-gradient-to-r from-[#4a235a] to-[#3b19d1] p-8 text-center text-white shadow-lg break-inside-avoid">
       <div className="flex flex-col items-center justify-center gap-3">
         
         <p className="text-2xl">Hi, {name}!</p>

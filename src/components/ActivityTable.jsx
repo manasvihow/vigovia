@@ -1,22 +1,7 @@
 import React from 'react';
+import { Column } from './PaymentPlan';
 
 const ActivityTable = ({ days, destination }) => {
-
-  const Column = ({ title, data, width, hasBorder = false }) => (
-    <div className={width}>
-      <div className="bg-[#4a235a] text-white text-center font-bold p-3 rounded-t-full shadow-md">
-        {title}
-      </div>
-      <div className={`bg-purple-50 rounded-b-4xl p-3 space-y-2 shadow-md`}>
-        {data.map((item, index) => (
-          <div key={index} className="text-center text-sm text-gray-800 h-8 flex items-center justify-center">
-            {item}
-          </div>
-        ))}
-        {data.length === 0 && <div className="h-8"></div>}
-      </div>
-    </div>
-  );
 
   // Flatten all activities from all days into a single array
   const allActivities = days.flatMap(day => 
